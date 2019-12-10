@@ -168,6 +168,8 @@ void start(OnSdkStartCompleted callback):
 
 > **Note:** `Email` and `PhoneNumber` details are never sent in plain-text to the *Blesh Ads Platform*. These values are always irreversibly hashed so that no personally identifiable information is stored.
 
+> **Note:** If you use an advertising ID provider other than Google Play Services, you can pass them using `IDFA_Provider` and `IDFA_Override` keys in the `Other` map.
+
 ##### Example: Simple Initialization
 
 You can start the Blesh Android SDK-Lite by simply calling the start method in your MainActivity:
@@ -199,6 +201,31 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("YourApp", "BleshSDK state: " + sdkStartState.name());
             }
         });
+    }
+}
+```
+
+##### Example: Initialization for Custom Advertising ID Provider
+
+```java
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // ... rest of your code
+
+        Map<String, String> other = new HashMap<>();
+        other.put("IDFA_Provider", "gms");
+        other.put("IDFA_Override", "93f6e226-ad9a-430e-b366-a4c839f0aa12");
+
+        ApplicationUser user = new ApplicationUser.Builder()
+                .userId("42")
+                .gender(ApplicationUserGender.FEMALE)
+                .yearOfBirth(2000)
+                .other(other)
+                .build();
+
+        BleshSdk.start(user);
     }
 }
 ```
