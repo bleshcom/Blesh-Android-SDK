@@ -1,42 +1,52 @@
-# Blesh Android SDK-Lite 5 Developers Guide
+# Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.0.0-rc1*
+**Version:** *5.1.0*
 
-This document describes integration of the Blesh Android SDK-Lite with your Android application.
+This document describes integration of the Blesh Android SDK with your Android application.
 
 ## Introduction
 
-Blesh Android SDK-Lite collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
+Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
-> **Note:** Lite edition of the Blesh Android SDK does not display ads. Its primary use-cases are enhancing audiences and aiding insights generation.
+> **Note:** This version of the Blesh Android SDK does not display ads. Its primary use-cases are enhancing audiences and aiding insights generation.
 
 ## Changelog
 
-  * **5.0.0-rc1** *(Released 12/6/2019)*
+  * **5.1.0** *(Released 12/17/2019)*
+    * Added geofence support
+
+  * **5.0.0** *(Released 12/6/2019)*
     * Added initialization support
     * Added callback handler for handling changes in the location permission
     * Supported server-side HTTP compression
 
 ## Requirements
 
-In order to integrate the Blesh Android SDK-Lite make sure you are:
+Compile SDK Version and Target SDK Version of Blesh Android SDK is 29. In order to integrate the Blesh Android SDK make sure you are:
 
   * Targeting Android version 4.1 (API level 16) or higher
   * Enabling Firebase. You may need to add a valid `google-services.json` to your project
   * Registered on the *Blesh Publisher Portal*
     * You may need to create a *Blesh Ads Platform Access Key* for the Android platform
 
-> **Note:** Compile SDK Version and Target SDK Version of Blesh Android SDK-Lite is 29.
+> **Note:** BleshSDK uses AndroidX libraries. You may need to use the "Migrate to AndroidX" feature in your IDE and add the definitions below to your gradle.properties file of your project.
+
+```gradle
+android.enableJetifier=true
+android.useAndroidX=true
+```
+
+Please refer to [Migrating to AndroidX](https://developer.android.com/jetpack/androidx/migrate) for more information.
 
 ## Integration
 
-### 1. Adding the Blesh Android SDK-Lite
+### 1. Adding the Blesh Android SDK
 
-The Blesh Android SDK-Lite can be added either by using Gradle or Maven.
+The Blesh Android SDK can be added either by using Gradle or Maven.
 
-#### 1.1. Adding the Blesh Android SDK-Lite with Gradle
+#### 1.1. Adding the Blesh Android SDK with Gradle
 
-Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` with version `5.0.0-rc1` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
+Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` with version `5.1.0` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
 
 **Steps to add:**
 
@@ -55,7 +65,7 @@ buildscript {
 
 dependencies {
     // ...
-    implementation 'com.blesh.sdk:sdk:5.0.0-rc1'
+    implementation 'com.blesh.sdk:sdk:5.1.0'
     // ...
 }
 ```
@@ -64,7 +74,7 @@ dependencies {
 
 ### 2. Adding Credentials and Application Permissions
 
-Blesh Android SDK-Lite requires **Blesh Ads Platform Access Key**. You may need to create one for the Android platform at the *Blesh Publisher Portal*. If you do not have an account at the *Blesh Publisher Portal* please contact us at technology@blesh.com. If you have your key you can provide it in your `AndroidManifest.xml` file.
+Blesh Android SDK requires **Blesh Ads Platform Access Key**. You may need to create one for the Android platform at the *Blesh Publisher Portal*. If you do not have an account at the *Blesh Publisher Portal* please contact us at technology@blesh.com. If you have your key you can provide it in your `AndroidManifest.xml` file.
 
 In order to properly initialize the SDK, you need to use internet and access network state permissions as below.
 
@@ -74,6 +84,13 @@ In order to properly initialize the SDK, you need to use internet and access net
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.your.application">
+
+    <!-- ... -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- ... -->
 
     <application
         android:name=".YourApplication">
@@ -85,19 +102,14 @@ In order to properly initialize the SDK, you need to use internet and access net
 
     </application>
 
-    <!-- ... -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
 </manifest>
 ```
 
 ## Usage
 
-### 1. Configuring the Blesh Android SDK-Lite
+### 1. Configuring the Blesh Android SDK
 
-Before starting the Blesh Android SDK-Lite, it needs to be configured with the `onCreate` method in your application class. `configure` method of the `BleshSdk` requires an instance of your application and optionally the Blesh Android SDK-Lite configuration.
+Before starting the Blesh Android SDK, it needs to be configured with the `onCreate` method in your application class. `configure` method of the `BleshSdk` requires an instance of your application and optionally the Blesh Android SDK configuration.
 
 <div style="page-break-after: always;"></div>
 
@@ -110,7 +122,7 @@ void configure(Application application);
 void configure(Application application, SdkConfiguration configuration):
 ```
 
-* `configuration` parameter allows you to configure the behaviour of the Blesh Android SDK-Lite. The `SdkConfiguration` class contains the following:
+* `configuration` parameter allows you to configure the behaviour of the Blesh Android SDK. The `SdkConfiguration` class contains the following:
 
 | Property   | Type | Description                                                                       | Example |
 |------------|------|-----------------------------------------------------------------------------------|---------|
@@ -120,7 +132,7 @@ void configure(Application application, SdkConfiguration configuration):
 
 ##### Example: Simple Configuration
 
-You can start the Blesh Android SDK-Lite by simply providing the application instance:
+You can start the Blesh Android SDK by simply providing the application instance:
 
 ```java
 public class YourApplication extends Application {
@@ -135,9 +147,9 @@ public class YourApplication extends Application {
 }
 ```
 
-### 2 Starting the Blesh Android SDK-Lite
+### 2 Starting the Blesh Android SDK
 
-After configuring the Blesh Android SDK-Lite, you can start it in one of your activities.
+After configuring the Blesh Android SDK, you can start it in one of your activities.
 
 
 #### Java
@@ -151,7 +163,7 @@ void start(ApplicationUser applicationUser, OnSdkStartCompleted callback);
 void start(OnSdkStartCompleted callback):
 ```
 
-* `callback` parameter allows you to execute your business logic after the Blesh Android SDK-Lite initialization is succeeded, skipped or failed.
+* `callback` parameter allows you to execute your business logic after the Blesh Android SDK initialization is succeeded, skipped or failed.
 
 <div style="page-break-after: always;"></div>
 
@@ -172,7 +184,7 @@ void start(OnSdkStartCompleted callback):
 
 ##### Example: Simple Initialization
 
-You can start the Blesh Android SDK-Lite by simply calling the start method in your MainActivity:
+You can start the Blesh Android SDK by simply calling the start method in your MainActivity:
 
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -260,9 +272,9 @@ public class MainActivity extends AppCompatActivity {
 
 <div style="page-break-after: always;"></div>
 
-### 3. Notifying the Blesh Android SDK-Lite About Changes in Permissions
+### 3. Notifying the Blesh Android SDK About Changes in Permissions
 
-Blesh Android SDK-Lite does not ask the user for permissions. Your application needs to ask location permissions. See "[Adding Credentials and Application Permissions](#2-adding-credentials-and-application-permissions)" section for more information.
+Blesh Android SDK does not ask the user for permissions. Your application needs to ask location permissions. See "[Adding Credentials and Application Permissions](#2-adding-credentials-and-application-permissions)" section for more information.
 
 When the location permission changes, your application should call the `onRequestPermissionsResult` method of `BleshSdk` with the new status in your Activity as below.
 
