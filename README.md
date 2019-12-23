@@ -319,3 +319,28 @@ override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<Str
     BleshSDK.onRequestPermissionsResult(requestCode, permissions, grantResults)
 }
 ```
+
+### 4. Controlling Push Notification Campaign Rendering
+
+Blesh Android SDK supports notifying applications prior to displaying a push notification campaign. At this stage, you can also control whether or not to display the push notification and its campaign content. You can set your handler using the `onCampaignNotificationReceived` property of `BleshSdk`.
+
+#### Java
+
+```java
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // ... rest of your code
+
+        BleshSdk.setOnCampaignNotificationReceived(campaignId -> {
+            // ... your application logic
+            Log.d("MyApplication", "Received a campaign with id " + campaignId + " from Blesh");
+
+            return true; // return "false" to deny Blesh SDK from displaying this campaign and push notification
+        });
+
+        BleshSdk.start();
+    }
+}
+```
