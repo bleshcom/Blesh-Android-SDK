@@ -8,11 +8,12 @@ This document describes integration of the Blesh Android SDK with your Android a
 
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
-> **Note:** This version of the Blesh Android SDK does not display ads. Its primary use-cases are enhancing audiences and aiding insights generation.
-
 ## Changelog
 
-  * **5.1.0** *(Released 12/17/2019)*
+  * **5.1.0** *(Released 12/23/2019)*
+    * Added push notification campaigns
+
+  * **5.1.0-rc1** *(Released 12/17/2019)*
     * Added geofence support
 
   * **5.0.0** *(Released 12/6/2019)*
@@ -74,9 +75,21 @@ dependencies {
 
 ### 2. Adding Credentials and Application Permissions
 
-Blesh Android SDK requires **Blesh Ads Platform Access Key**. You may need to create one for the Android platform at the *Blesh Publisher Portal*. If you do not have an account at the *Blesh Publisher Portal* please contact us at technology@blesh.com. If you have your key you can provide it in your `AndroidManifest.xml` file.
+#### Secret Key
 
-In order to properly initialize the SDK, you need to use internet and access network state permissions as below.
+Blesh Android SDK requires **Blesh Ads Platform Access Key**. You may need to create one for the Android platform at the *Blesh Publisher Portal*. If you do not have an account at the *Blesh Publisher Portal* please contact us at technology@blesh.com. If you have your key you can provide it in your `AndroidManifest.xml` file with the `com.blesh.sdk.secretKey` key.
+
+#### Notification Icon
+
+Push notifications are rendered with the Blesh logo by default. You can customize this logo by providing a resource with the `com.blesh.sdk.notificationIcon` key.
+
+#### Notification Color
+
+Push notifications are rendered with the `#351F78` color by default. You can customize this logo by providing a resource with the `com.blesh.sdk.notificationColor` key.
+
+#### Permissions
+
+In order to properly initialize the SDK, you need to use internet and access network state permissions.
 
 **Example manifest file:**
 
@@ -96,9 +109,20 @@ In order to properly initialize the SDK, you need to use internet and access net
         android:name=".YourApplication">
         <!-- ... -->
 
+        <!-- Secret key -->
         <meta-data
             android:name="com.blesh.sdk.secretKey"
             android:value="YOUR-SECRET-KEY" />
+
+        <!-- Custom notification icon -->
+        <meta-data
+            android:name="com.blesh.sdk.notificationIcon"
+            android:resource="@drawable/compatibleIcon" />
+
+        <!-- Custom notification color -->
+        <meta-data
+            android:name="com.blesh.sdk.notificationColor"
+            android:resource="@color/colorPrimary" />
 
     </application>
 
@@ -150,7 +174,6 @@ public class YourApplication extends Application {
 ### 2 Starting the Blesh Android SDK
 
 After configuring the Blesh Android SDK, you can start it in one of your activities.
-
 
 #### Java
 
