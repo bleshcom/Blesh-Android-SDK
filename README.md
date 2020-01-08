@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.1.0*
+**Version:** *5.2.1*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -9,6 +9,12 @@ This document describes integration of the Blesh Android SDK with your Android a
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
 ## Changelog
+
+  * **5.2.1** *(Released 01/08/2020)*
+    * Improved compatibility with shared libraries
+
+  * **5.2.0** *(Released 01/07/2020)*
+    * Added WiFi support
 
   * **5.1.0** *(Released 12/23/2019)*
     * Added push notification campaigns
@@ -47,7 +53,7 @@ The Blesh Android SDK can be added either by using Gradle or Maven.
 
 #### 1.1. Adding the Blesh Android SDK with Gradle
 
-Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` with version `5.1.0` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
+Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` with version `5.2.1` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
 
 **Steps to add:**
 
@@ -66,7 +72,7 @@ buildscript {
 
 dependencies {
     // ...
-    implementation 'com.blesh.sdk:sdk:5.1.0'
+    implementation 'com.blesh.sdk:sdk:5.2.1'
     // ...
 }
 ```
@@ -103,6 +109,7 @@ In order to properly initialize the SDK, you need to use internet and access net
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    
     <!-- ... -->
 
     <application
