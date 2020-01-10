@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.2.1*
+**Version:** *5.2.2*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -9,6 +9,9 @@ This document describes integration of the Blesh Android SDK with your Android a
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
 ## Changelog
+
+  * **5.2.2** *(Released 01/11/2020)*
+    * Added more campaign callbacks
 
   * **5.2.1** *(Released 01/08/2020)*
     * Improved compatibility with shared libraries
@@ -53,7 +56,7 @@ The Blesh Android SDK can be added either by using Gradle or Maven.
 
 #### 1.1. Adding the Blesh Android SDK with Gradle
 
-Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` with version `5.2.1` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
+Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` with version `5.2.2` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
 
 **Steps to add:**
 
@@ -72,7 +75,7 @@ buildscript {
 
 dependencies {
     // ...
-    implementation 'com.blesh.sdk:sdk:5.2.1'
+    implementation 'com.blesh.sdk:sdk:5.2.2'
     // ...
 }
 ```
@@ -95,7 +98,7 @@ Push notifications are rendered with the `#351F78` color by default. You can cus
 
 #### Permissions
 
-In order to properly initialize the SDK, you need to use internet and access network state permissions.
+In order to properly initialize the SDK, you need to use internet and access network/wifi state permissions.
 
 **Example manifest file:**
 
@@ -109,6 +112,7 @@ In order to properly initialize the SDK, you need to use internet and access net
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     
     <!-- ... -->
 
@@ -141,8 +145,6 @@ In order to properly initialize the SDK, you need to use internet and access net
 ### 1. Configuring the Blesh Android SDK
 
 Before starting the Blesh Android SDK, it needs to be configured with the `onCreate` method in your application class. `configure` method of the `BleshSdk` requires an instance of your application and optionally the Blesh Android SDK configuration.
-
-<div style="page-break-after: always;"></div>
 
 #### Java
 
@@ -194,8 +196,6 @@ void start(OnSdkStartCompleted callback):
 ```
 
 * `callback` parameter allows you to execute your business logic after the Blesh Android SDK initialization is succeeded, skipped or failed.
-
-<div style="page-break-after: always;"></div>
 
 * `applicationUser` parameter allows you to enchance the audience data by providing information about the primary user (subscriber) of your application. You can give any information which makes the subscriber unique in your application's understanding. The `ApplicationUser` class contains the following:
 
@@ -272,8 +272,6 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-<div style="page-break-after: always;"></div>
-
 ##### Example: Complete Initialization
 
 ```java
@@ -299,8 +297,6 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
-
-<div style="page-break-after: always;"></div>
 
 ### 3. Notifying the Blesh Android SDK About Changes in Permissions
 
@@ -345,6 +341,29 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MyApplication", "Received a campaign with id " + campaignId + " from Blesh");
 
             return true; // return "false" to deny Blesh SDK from displaying this campaign and push notification
+        });
+
+        BleshSdk.start();
+    }
+}
+```
+
+### 5. Getting Notified When a Blesh Campaign Is Displayed
+
+If you implement the `OnCampaignDisplayed` interface and assign the object to the `onCampaignDisplayed` property of `BleshSdk` then you can get notified whenever a Blesh campaign is displayed to the user.
+
+#### Java
+
+```java
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // ... rest of your code
+
+        BleshSdk.setOnCampaignDisplayed((campaignId, contentId, notificationId) -> {
+            // ... your application logic
+            Log.d("MyApplication", "Displayed a campaign with id " + campaignId + " from Blesh");
         });
 
         BleshSdk.start();
