@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.2.3*
+[ ![Download](https://api.bintray.com/packages/bleshinc/blesh/sdk/images/download.svg) ](https://bintray.com/bleshinc/blesh/sdk/_latestVersion)
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -9,6 +9,9 @@ This document describes integration of the Blesh Android SDK with your Android a
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
 ## Changelog
+
+  * **5.2.4** *(Released 01/23/2020)*
+    * Updated third party dependencies
 
   * **5.2.3** *(Released 01/17/2020)*
     * Added defensive checks for activities and broadcast receivers
@@ -59,7 +62,7 @@ The Blesh Android SDK can be added either by using Gradle or Maven.
 
 #### 1.1. Adding the Blesh Android SDK with Gradle
 
-Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` with version `5.2.3` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
+Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
 
 **Steps to add:**
 
@@ -77,8 +80,7 @@ buildscript {
 }
 
 dependencies {
-    // ...
-    implementation 'com.blesh.sdk:sdk:5.2.3'
+    implementation "com.blesh.sdk:sdk:5.2.4"
     // ...
 }
 ```
