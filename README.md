@@ -10,6 +10,9 @@ Blesh Android SDK collects location information from a device on which the Andro
 
 ## Changelog
 
+  * **5.2.5** *(Released 01/30/2020)*
+    * Updated third party dependencies
+
   * **5.2.4** *(Released 01/23/2020)*
     * Updated third party dependencies
 
@@ -80,7 +83,7 @@ buildscript {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.2.4"
+    implementation "com.blesh.sdk:sdk:5.2.5"
     // ...
 }
 ```
@@ -162,8 +165,8 @@ void configure(Application application, SdkConfiguration configuration):
 
 * `configuration` parameter allows you to configure the behaviour of the Blesh Android SDK. The `SdkConfiguration` class contains the following:
 
-| Property   | Type | Description                                                                       | Example |
-|------------|------|-----------------------------------------------------------------------------------|---------|
+| Property   | Type    | Description                                                                       | Example |
+|------------|---------|-----------------------------------------------------------------------------------|---------|
 | TestMode   | boolean | Use the SDK in the test mode (true) or use the SDK in the production mode (false) | false   |
 
 > **Note:** `TestMode` is off by default. You can enable this mode during your integration tests. Production environment will not be effected when this flag is set to `true`.
@@ -204,14 +207,14 @@ void start(OnSdkStartCompleted callback):
 
 * `applicationUser` parameter allows you to enchance the audience data by providing information about the primary user (subscriber) of your application. You can give any information which makes the subscriber unique in your application's understanding. The `ApplicationUser` class contains the following:
 
-| Property    | Type                     | Description                                  | Example              |
-|-------------|--------------------------|----------------------------------------------|----------------------|
-| UserId      | String                  | Optional unique identifier of the user       | 42                   |
-| Gender      | ApplicationUserGender                | Optional gender of the user | ApplicationUserGender.FEMALE               |
-| YearOfBirth | Integer                     | Optional year of birth of the user           | 1999                 |
-| Email       | String                  | Optional email address of the user           | jane.doe@example.com |
-| PhoneNumber | String                  | Optional mobile phone number of the user     | +905550000000        |
-| Other       | Map | Optional extra information for the user      | null                  |
+| Property    | Type                   | Description                               | Example                       |
+|-------------|------------------------|-------------------------------------------|-------------------------------|
+| UserId      | String                 | Optional unique identifier of the user    | 42                            |
+| Gender      | ApplicationUserGender  | Optional gender of the user               | ApplicationUserGender.FEMALE  |
+| YearOfBirth | Integer                | Optional year of birth of the user        | 1999                          |
+| Email       | String                 | Optional email address of the user        | jane.doe@example.com          |
+| PhoneNumber | String                 | Optional mobile phone number of the user  | +905550000000                 |
+| Other       | Map                    | Optional extra information for the user   | null                          |
 
 > **Note:** `Email` and `PhoneNumber` details are never sent in plain-text to the *Blesh Ads Platform*. These values are always irreversibly hashed so that no personally identifiable information is stored.
 
