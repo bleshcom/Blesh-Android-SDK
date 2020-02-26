@@ -10,6 +10,9 @@ Blesh Android SDK collects location information from a device on which the Andro
 
 ## Changelog
 
+  * **5.2.6** *(Released 02/25/2020)*
+    * Updated third party dependencies
+
   * **5.2.5** *(Released 01/30/2020)*
     * Updated third party dependencies
 
@@ -83,7 +86,7 @@ buildscript {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.2.5"
+    implementation "com.blesh.sdk:sdk:5.2.6"
     // ...
 }
 ```
