@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-[ ![Download](https://api.bintray.com/packages/bleshinc/blesh/sdk/images/download.svg) ](https://bintray.com/bleshinc/blesh/sdk/_latestVersion)
+**Version:** *5.2.7*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -71,7 +71,7 @@ The Blesh Android SDK can be added either by using Gradle or Maven.
 
 #### 1.1. Adding the Blesh Android SDK with Gradle
 
-Referencing the `sdk` package in the JCenter repository `com.blesh.sdk` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
+Referencing the `sdk` package in the Blesh Maven repository `com.blesh.sdk` in the `build.gradle` will be sufficient to add the Blesh Android SDK to your project.
 
 **Steps to add:**
 
@@ -83,7 +83,7 @@ apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
-        jcenter()
+        maven { url 'https://artifact.blesh.com/repository/releases' }
         // ...
     }
 }
