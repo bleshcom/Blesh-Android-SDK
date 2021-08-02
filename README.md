@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.2.7*
+**Version:** *5.2.8*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -9,6 +9,9 @@ This document describes integration of the Blesh Android SDK with your Android a
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
 ## Changelog
+
+  * **5.2.8** *(Released 08/02/2021)*
+    * Added support for Android 11 (API Level 30)
 
   * **5.2.7** *(Released 07/27/2020)*
     * Enhanced rendering
@@ -47,11 +50,10 @@ Blesh Android SDK collects location information from a device on which the Andro
 
 ## Requirements
 
-Compile SDK Version and Target SDK Version of Blesh Android SDK is 29. In order to integrate the Blesh Android SDK make sure you are:
+Compile SDK Version and Target SDK Version of Blesh Android SDK is 30. In order to integrate the Blesh Android SDK make sure you are:
 
   * Targeting Android version 4.1 (API level 16) or higher
-  * Enabling Firebase. You may need to add a valid `google-services.json` to your project
-  * Registered on the *Blesh Publisher Portal*
+  * Registered on the [Blesh Publisher Portal](https://publisher.blesh.com)
     * You may need to create a *Blesh Ads Platform Access Key* for the Android platform
 
 > **Note:** BleshSDK uses AndroidX libraries. You may need to use the "Migrate to AndroidX" feature in your IDE and add the definitions below to your gradle.properties file of your project.
@@ -81,15 +83,13 @@ Referencing the `sdk` package in the Blesh Maven repository `com.blesh.sdk` in t
 apply plugin: 'com.android.application'
 // ...
 
-buildscript {
-    repositories {
-        maven { url 'https://artifact.blesh.com/repository/releases' }
-        // ...
-    }
+repositories {
+    maven { url 'https://artifact.blesh.com/repository/releases/' }
+    // ...
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.2.7"
+    implementation "com.blesh.sdk:sdk:5.2.8"
     // ...
 }
 ```
