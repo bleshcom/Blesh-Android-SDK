@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.2.8*
+**Version:** *5.3.0*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -10,47 +10,49 @@ Blesh Android SDK collects location information from a device on which the Andro
 
 ## Changelog
 
-  * **5.2.8** *(Released 08/02/2021)*
+  * **5.3.0** *(Released 2022-04-12)*
+    * Added in-app behavior tracking
+    * Added support for Android 12 (API Level 31)
+
+  * **5.2.8** *(Released 2021-08-02)*
     * Added support for Android 11 (API Level 30)
 
-  * **5.2.7** *(Released 07/27/2020)*
+  * **5.2.7** *(Released 2020-07-27)*
     * Enhanced rendering
 
-  * **5.2.6** *(Released 02/25/2020)*
+  * **5.2.6** *(Released 2020-02-25)*
     * Updated third party dependencies
 
-  * **5.2.5** *(Released 01/30/2020)*
+  * **5.2.5** *(Released 2020-01-30)*
     * Updated third party dependencies
 
-  * **5.2.4** *(Released 01/23/2020)*
+  * **5.2.4** *(Released 2020-01-23)*
     * Updated third party dependencies
 
-  * **5.2.3** *(Released 01/17/2020)*
+  * **5.2.3** *(Released 2020-01-17)*
     * Added defensive checks for activities and broadcast receivers
 
-  * **5.2.2** *(Released 01/11/2020)*
+  * **5.2.2** *(Released 2020-01-11)*
     * Added more campaign callbacks
 
-  * **5.2.1** *(Released 01/08/2020)*
+  * **5.2.1** *(Released 2020-01-08)*
     * Improved compatibility with shared libraries
 
-  * **5.2.0** *(Released 01/07/2020)*
+  * **5.2.0** *(Released 2020-01-07)*
     * Added WiFi support
 
-  * **5.1.0** *(Released 12/23/2019)*
+  * **5.1.0** *(Released 2019-12-23)*
     * Added push notification campaigns
-
-  * **5.1.0-rc1** *(Released 12/17/2019)*
     * Added geofence support
 
-  * **5.0.0** *(Released 12/6/2019)*
+  * **5.0.0** *(Released 2019-12-06)*
     * Added initialization support
     * Added callback handler for handling changes in the location permission
     * Supported server-side HTTP compression
 
 ## Requirements
 
-Compile SDK Version and Target SDK Version of Blesh Android SDK is 30. In order to integrate the Blesh Android SDK make sure you are:
+Compile SDK Version and Target SDK Version of Blesh Android SDK is 31. In order to integrate the Blesh Android SDK make sure you are:
 
   * Targeting Android version 4.1 (API level 16) or higher
   * Registered on the [Blesh Publisher Portal](https://publisher.blesh.com)
@@ -89,7 +91,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.2.8"
+    implementation "com.blesh.sdk:sdk:5.3.0"
     // ...
 }
 ```
@@ -384,3 +386,4 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
+
