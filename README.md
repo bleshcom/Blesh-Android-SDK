@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.3.0*
+**Version:** *5.4.0*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -9,6 +9,11 @@ This document describes integration of the Blesh Android SDK with your Android a
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
 ## Changelog
+
+  * **5.4.0** *(Released 2022-07-03)*
+    * Added beacon scanning
+    * Added remote push notifications
+    * Added motion activity transitions
 
   * **5.3.0** *(Released 2022-04-12)*
     * Added in-app behavior tracking
@@ -91,7 +96,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.3.0"
+    implementation "com.blesh.sdk:sdk:5.4.0"
     // ...
 }
 ```
@@ -129,6 +134,11 @@ In order to properly initialize the SDK, you need to use internet and access net
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     
     <!-- ... -->
 
