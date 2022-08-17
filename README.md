@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.4.2*
+**Version:** *5.4.3*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -9,6 +9,9 @@ This document describes integration of the Blesh Android SDK with your Android a
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
 ## Changelog
+
+  * **5.4.3** *(Released 2022-08-17)*
+    * Allowed entry of access key via configuration builder
 
   * **5.4.2** *(Released 2022-07-07)*
     * Added callbacks for restart and stop methods
@@ -103,7 +106,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.4.2"
+    implementation "com.blesh.sdk:sdk:5.4.3"
     // ...
 }
 ```
@@ -114,7 +117,9 @@ dependencies {
 
 #### Secret Key
 
-Blesh Android SDK requires **Blesh Ads Platform Access Key**. You may need to create one for the Android platform at the *Blesh Publisher Portal*. If you do not have an account at the *Blesh Publisher Portal* please contact us at technology@blesh.com. If you have your key you can provide it in your `AndroidManifest.xml` file with the `com.blesh.sdk.secretKey` key.
+Blesh Android SDK requires **Blesh Ads Platform Access Key**. You may need to create one for the Android platform at the *Blesh Publisher Portal*. If you do not have an account at the *Blesh Publisher Portal* please contact us at technology@blesh.com. If you have your key you can provide it in your `AndroidManifest.xml` file with the `com.blesh.sdk.secretKey` key. 
+
+Alternatively, you can provide the **Blesh Ads Platform Access Key** via the SDK `configure` method as documented in the next section.
 
 #### Notification Icon
 
@@ -190,9 +195,10 @@ void configure(Application application, SdkConfiguration configuration):
 
 * `configuration` parameter allows you to configure the behaviour of the Blesh Android SDK. The `SdkConfiguration` class contains the following:
 
-| Property   | Type    | Description                                                                       | Example |
-|------------|---------|-----------------------------------------------------------------------------------|---------|
-| TestMode   | boolean | Use the SDK in the test mode (true) or use the SDK in the production mode (false) | false   |
+| Property   | Type    | Description                                                                         |
+|------------|---------|-------------------------------------------------------------------------------------|
+| SecretKey  | String  | Use the provided secret key. This overrides the key provided at AndroidManifest.xml |
+| TestMode   | Boolean | Use the SDK in the test mode (true) or use the SDK in the production mode (false)   |
 
 > **Note:** `TestMode` is off by default. You can enable this mode during your integration tests. Production environment will not be effected when this flag is set to `true`.
 
@@ -209,6 +215,26 @@ public class YourApplication extends Application {
         // ... rest of the code ...
 
         BleshSdk.configure(this);
+    }
+}
+```
+
+##### Example: Providing Secret Key with Configuration
+
+```java
+public class YourApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        // ... rest of the code ...
+
+        BleshSdk.configure(
+          this,
+          new SdkConfiguration.Builder()
+                .testMode(false)
+                .secretKey("YOUR_SECRET_KEY_HERE")
+                .build());
     }
 }
 ```
