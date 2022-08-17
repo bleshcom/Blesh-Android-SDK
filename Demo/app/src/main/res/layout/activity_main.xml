@@ -69,7 +69,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:background="#000000"
+        android:background="#C8000000"
         android:fontFamily="monospace"
         android:gravity="bottom"
         android:scrollbars="horizontal|vertical"
