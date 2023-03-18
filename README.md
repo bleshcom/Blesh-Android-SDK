@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.4.4*
+**Version:** *5.4.5*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -9,6 +9,9 @@ This document describes integration of the Blesh Android SDK with your Android a
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
 ## Changelog
+
+  * **5.4.5** *(Released 2023-03-18)*
+    * Improved push notification only content compatibility
 
   * **5.4.4** *(Released 2022-11-10)*
     * Improved remote push notification message handling
@@ -109,7 +112,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.4.4"
+    implementation "com.blesh.sdk:sdk:5.4.5"
     // ...
 }
 ```
