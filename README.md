@@ -8,6 +8,46 @@ This document describes integration of the Blesh Android SDK with your Android a
 
 Blesh Android SDK collects location information from a device on which the Android application is installed. Blesh Ads Platform uses this data for creating and enhancing audiences, serving targeted ads, and insights generation.
 
+## Table of Contents
+
+- [Blesh Android SDK 5 Developers Guide](#blesh-android-sdk-5-developers-guide)
+  - [Introduction](#introduction)
+  - [Table of Contents](#table-of-contents)
+  - [Changelog](#changelog)
+  - [Requirements](#requirements)
+  - [Integration](#integration)
+    - [1. Adding the Blesh Android SDK](#1-adding-the-blesh-android-sdk)
+      - [1.1. Adding the Blesh Android SDK with Gradle](#11-adding-the-blesh-android-sdk-with-gradle)
+    - [2. Adding Credentials and Application Permissions](#2-adding-credentials-and-application-permissions)
+      - [Secret Key](#secret-key)
+      - [Notification Icon](#notification-icon)
+      - [Notification Color](#notification-color)
+      - [Permissions](#permissions)
+  - [Usage](#usage)
+    - [1. Configuring the Blesh Android SDK](#1-configuring-the-blesh-android-sdk)
+      - [Java](#java)
+        - [Example: Simple Configuration](#example-simple-configuration)
+        - [Example: Providing Secret Key with Configuration](#example-providing-secret-key-with-configuration)
+    - [2 Starting the Blesh Android SDK](#2-starting-the-blesh-android-sdk)
+      - [Java](#java-1)
+        - [Example: Simple Initialization](#example-simple-initialization)
+        - [Example: Simple Initialization with callback](#example-simple-initialization-with-callback)
+        - [Example: Initialization for Custom Advertising ID Provider](#example-initialization-for-custom-advertising-id-provider)
+        - [Example: Complete Initialization](#example-complete-initialization)
+    - [3. Notifying the Blesh Android SDK About Changes in Permissions](#3-notifying-the-blesh-android-sdk-about-changes-in-permissions)
+      - [Java](#java-2)
+      - [Kotlin](#kotlin)
+    - [4. Controlling Push Notification Campaign Rendering](#4-controlling-push-notification-campaign-rendering)
+      - [Java](#java-3)
+    - [5. Getting Notified When a Blesh Campaign Is Displayed](#5-getting-notified-when-a-blesh-campaign-is-displayed)
+      - [Java](#java-4)
+    - [6. Enabling Remote Push Notifications](#6-enabling-remote-push-notifications)
+      - [Java](#java-5)
+        - [Example: Passing The Current Registration Token](#example-passing-the-current-registration-token)
+        - [Example: Monitoring The Registration Token Generation](#example-monitoring-the-registration-token-generation)
+        - [Example: Passing The Remote Message To Blesh SDK](#example-passing-the-remote-message-to-blesh-sdk)
+
+
 ## Changelog
 
   * **5.4.5** *(Released 2023-03-18)*
@@ -435,4 +475,90 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
+
+### 6. Enabling Remote Push Notifications
+
+Blesh Android SDK currently supports remote push notifications throught Firebase Cloud Messaging ([FCM](https://firebase.google.com/docs/cloud-messaging)).
+
+> **Note:** Firebase certificates need to be registered on the [Blesh Publisher Portal](https://publisher.blesh.com).
+
+To be able to receive remote notifications:
+
+1. Firebase device registration token should be passed to Blesh SDK via `BleshSdk.setPushNotificationToken`
+2. Firebase remote messages should be handled by the Blesh SDK via `BleshSdk.handleRemoteMessage`
+
+Please refer to the [FCM Android Documentation](https://firebase.google.com/docs/cloud-messaging/android/client#sample-register) for more information.
+
+#### Java
+
+##### Example: Passing The Current Registration Token
+
+```java
+FirebaseMessaging.getInstance().getToken()
+  .addOnCompleteListener(new OnCompleteListener<String>() {
+      @Override
+      public void onComplete(@NonNull Task<String> task) {
+          // ... rest of your code
+
+          if (!task.isSuccessful()) {
+              Log.e("Fetching FCM registration token failed" + task.getException());
+              return;
+          }
+
+          // Get new FCM registration token
+          String token = task.getResult();
+
+          // Notify the Blesh SDK
+          BleshSdk.setPushNotificationToken(token);
+
+          // ... rest of your code
+      }
+  });
+```
+
+##### Example: Monitoring The Registration Token Generation
+
+Given a class that extends the `FirebaseMessagingService` class, the following override of the `onNewToken` can be written:
+
+```java
+public class MyMessagingService extends FirebaseMessagingService {
+    // ... rest of your code
+
+    @Override
+    public void onNewToken(String token) {
+        // ... rest of your code
+
+        BleshSdk.setPushNotificationToken(token);
+
+        // ... rest of your code
+    }
+
+    // ... rest of your code
+}
+````
+
+##### Example: Passing The Remote Message To Blesh SDK
+
+Given a class that extends the `FirebaseMessagingService` class, the following override of the `onMessageReceived` can be written:
+
+```java
+public class MyMessagingService extends FirebaseMessagingService {
+    // ... rest of your code
+
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        // ... rest of your code
+
+        // Check if message contains a data payload.
+        if (remoteMessage.getData().size() > 0) {
+            // Notify BleshSDK
+            BleshSdk.handleRemoteMessage(remoteMessage.getData());
+        }
+
+        // ... rest of your code
+    }
+
+    // ... rest of your code
+}
+````
 
