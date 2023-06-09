@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.4.5*
+**Version:** *5.4.6*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -49,6 +49,9 @@ Blesh Android SDK collects location information from a device on which the Andro
 
 
 ## Changelog
+
+  * **5.4.6** *(Released 2023-06-09)*
+    * Added compatibility methods for Activity Results API
 
   * **5.4.5** *(Released 2023-03-18)*
     * Improved push notification only content compatibility
@@ -152,7 +155,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.4.5"
+    implementation "com.blesh.sdk:sdk:5.4.6"
     // ...
 }
 ```
@@ -408,6 +411,8 @@ public class MainActivity extends AppCompatActivity {
 Blesh Android SDK does not ask the user for permissions. Your application needs to ask location permissions. See "[Adding Credentials and Application Permissions](#2-adding-credentials-and-application-permissions)" section for more information.
 
 When the location permission changes, your application should call the `onRequestPermissionsResult` method of `BleshSdk` with the new status in your Activity as below.
+
+Alternatively, for applications utilizing the Activity Results API you can call the  `onPermissionsUpdated` method of `BleshSdk` on the `ActivityResultCallback`.
 
 #### Java
 
