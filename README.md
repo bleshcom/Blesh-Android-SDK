@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.4.7*
+**Version:** *5.4.8*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -49,6 +49,9 @@ Blesh Android SDK collects location information from a device on which the Andro
 
 
 ## Changelog
+
+  * **5.4.8** *(Released 2023-07-06)*
+    * Built with AGP 7.0.4 for backwards compatibility
 
   * **5.4.7** *(Released 2023-07-04)*
     * Compiled with Kotlin 1.5.10 for backwards compatibility
@@ -158,7 +161,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.4.7"
+    implementation "com.blesh.sdk:sdk:5.4.8"
     // ...
 }
 ```
