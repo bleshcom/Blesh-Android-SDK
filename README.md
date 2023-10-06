@@ -1,6 +1,6 @@
 # Blesh Android SDK 5 Developers Guide
 
-**Version:** *5.4.9*
+**Version:** *5.5.0*
 
 This document describes integration of the Blesh Android SDK with your Android application.
 
@@ -49,6 +49,14 @@ Blesh Android SDK collects location information from a device on which the Andro
 
 
 ## Changelog
+
+  * **5.5.0** *(Released 2023-10-06)*
+    * Set minimum Android version to 5
+    * Supported text components in interstitials
+    * Improved interstitial layout
+    * Supported intersitial background layer interactions
+    * Added an ability to load remote ads
+    * Improved APNs support
 
   * **5.4.9** *(Released 2023-07-26)*
     * Added helper methods to identify Blesh notifications
@@ -127,7 +135,7 @@ Blesh Android SDK collects location information from a device on which the Andro
 
 Compile SDK Version and Target SDK Version of Blesh Android SDK is 31. In order to integrate the Blesh Android SDK make sure you are:
 
-  * Targeting Android version 4.1 (API level 16) or higher
+  * Targeting Android version 5 (API level 21) or higher
   * Registered on the [Blesh Publisher Portal](https://publisher.blesh.com)
     * You may need to create a *Blesh Ads Platform Access Key* for the Android platform
 
@@ -164,7 +172,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.blesh.sdk:sdk:5.4.9"
+    implementation "com.blesh.sdk:sdk:5.5.0"
     // ...
 }
 ```
